@@ -5,55 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mastering Productivity</title>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-    
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            'bg-dark': '#0a0e1a',
-            'bg-card': '#131929',
-            'bg-card2': '#1a2235',
-            'blue-bright': '#38bdf8',
-            'blue-mid': '#7c86ff',
-            'text-white': '#f0f4ff',
-            'text-muted': '#8899bb',
-            'accent-line': '#5b6fff',
-            'border-card': '#1e2d45',
-          },
-          fontFamily: {
-            sora: ['Sora', 'sans-serif'],
-            inter: ['Inter', 'sans-serif'],
-          },
-          animation: {
-            'slide-up': 'slideUp 0.5s ease forwards',
-            'fade-in': 'fadeIn 0.5s ease forwards',
-          },
-          keyframes: {
-            slideUp: {
-              '0%': { opacity: '0', transform: 'translateY(20px)' },
-              '100%': { opacity: '1', transform: 'translateY(0)' },
-            },
-            fadeIn: {
-              '0%': { opacity: '0' },
-              '100%': { opacity: '1' },
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'bg-dark': '#0a0e1a',
+                        'bg-card': '#131929',
+                        'bg-card2': '#1a2235',
+                        'blue-bright': '#38bdf8',
+                        'blue-mid': '#7c86ff',
+                        'text-white': '#f0f4ff',
+                        'text-muted': '#8899bb',
+                        'accent-line': '#5b6fff',
+                        'border-card': '#1e2d45',
+                    },
+                    fontFamily: {
+                        sora: ['Sora', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'slide-up': 'slideUp 0.5s ease forwards',
+                        'fade-in': 'fadeIn 0.5s ease forwards',
+                    },
+                    keyframes: {
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        }
+                    }
+                }
             }
-          }
         }
-      }
-    }
     </script>
-    
+
     <style>
         @keyframes slideUp {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        
+
         .slideshow { position: relative; width: 100%; height: 100vh; }
-        
+
         .slide {
             position: absolute;
             inset: 0;
@@ -64,96 +64,412 @@
             transform: translateX(60px);
             transition: opacity 0.5s ease, transform 0.5s ease;
             pointer-events: none;
-            background: #0a0e1a;
             overflow: hidden;
         }
-        
+
         .slide.active {
             opacity: 1;
             transform: translateX(0);
             pointer-events: all;
         }
-        
+
         .slide.exit-left {
             opacity: 0;
             transform: translateX(-60px);
         }
-        
+
         .slide.exit-right {
             opacity: 0;
             transform: translateX(60px);
         }
-        
+
         .animate-in { opacity: 0; }
-        
+
         .slide.active .animate-in:nth-child(1) { animation: slideUp 0.5s ease forwards 0.1s; }
         .slide.active .animate-in:nth-child(2) { animation: slideUp 0.5s ease forwards 0.2s; }
         .slide.active .animate-in:nth-child(3) { animation: slideUp 0.5s ease forwards 0.3s; }
         .slide.active .animate-in:nth-child(4) { animation: slideUp 0.5s ease forwards 0.4s; }
+
+        /* ============================================
+           ELEGANT GLASS BUBBLES BACKGROUND
+           ============================================ */
+
+        .bubbles-container {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        /* Base bubble style - glass/crystal effect */
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background:
+                    radial-gradient(130% 130% at 30% 30%, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 20%, rgba(56,189,248,0.08) 40%, transparent 70%),
+                    radial-gradient(circle at 70% 70%, rgba(124,134,255,0.1) 0%, transparent 50%);
+            border: 1px solid rgba(56,189,248,0.15);
+            box-shadow:
+                    inset 0 0 20px rgba(56,189,248,0.1),
+                    inset -10px -10px 30px rgba(124,134,255,0.05),
+                    0 0 30px rgba(56,189,248,0.15),
+                    0 0 60px rgba(124,134,255,0.08);
+            backdrop-filter: blur(1px);
+            animation: bubbleFloat linear infinite;
+        }
+
+        /* Shine reflection on bubble */
+        .bubble::before {
+            content: '';
+            position: absolute;
+            top: 15%;
+            left: 20%;
+            width: 25%;
+            height: 15%;
+            border-radius: 50%;
+            background: radial-gradient(ellipse, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.1) 60%, transparent 100%);
+            transform: rotate(-30deg);
+            filter: blur(1px);
+        }
+
+        /* Secondary small shine dot */
+        .bubble::after {
+            content: '';
+            position: absolute;
+            top: 25%;
+            left: 65%;
+            width: 8%;
+            height: 8%;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 70%);
+            filter: blur(0.5px);
+        }
+
+        /* Individual bubble variations */
+        .bubble-1 {
+            width: 80px; height: 80px;
+            left: 10%; bottom: -100px;
+            animation-duration: 12s;
+            animation-delay: 0s;
+        }
+
+        .bubble-2 {
+            width: 50px; height: 50px;
+            left: 20%; bottom: -100px;
+            animation-duration: 15s;
+            animation-delay: 2s;
+            background:
+                    radial-gradient(130% 130% at 30% 30%, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 20%, rgba(124,134,255,0.1) 40%, transparent 70%),
+                    radial-gradient(circle at 70% 70%, rgba(56,189,248,0.08) 0%, transparent 50%);
+            border-color: rgba(124,134,255,0.2);
+            box-shadow:
+                    inset 0 0 20px rgba(124,134,255,0.1),
+                    inset -10px -10px 30px rgba(56,189,248,0.05),
+                    0 0 30px rgba(124,134,255,0.15),
+                    0 0 60px rgba(56,189,248,0.08);
+        }
+
+        .bubble-3 {
+            width: 120px; height: 120px;
+            left: 35%; bottom: -150px;
+            animation-duration: 18s;
+            animation-delay: 4s;
+        }
+
+        .bubble-4 {
+            width: 40px; height: 40px;
+            left: 45%; bottom: -100px;
+            animation-duration: 10s;
+            animation-delay: 1s;
+            background:
+                    radial-gradient(130% 130% at 30% 30%, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.05) 20%, rgba(91,111,255,0.1) 40%, transparent 70%),
+                    radial-gradient(circle at 70% 70%, rgba(56,189,248,0.08) 0%, transparent 50%);
+            border-color: rgba(91,111,255,0.2);
+        }
+
+        .bubble-5 {
+            width: 90px; height: 90px;
+            left: 55%; bottom: -120px;
+            animation-duration: 14s;
+            animation-delay: 3s;
+        }
+
+        .bubble-6 {
+            width: 60px; height: 60px;
+            left: 65%; bottom: -100px;
+            animation-duration: 16s;
+            animation-delay: 5s;
+            background:
+                    radial-gradient(130% 130% at 30% 30%, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 20%, rgba(124,134,255,0.1) 40%, transparent 70%),
+                    radial-gradient(circle at 70% 70%, rgba(91,111,255,0.08) 0%, transparent 50%);
+            border-color: rgba(124,134,255,0.2);
+        }
+
+        .bubble-7 {
+            width: 100px; height: 100px;
+            left: 75%; bottom: -140px;
+            animation-duration: 20s;
+            animation-delay: 2.5s;
+        }
+
+        .bubble-8 {
+            width: 45px; height: 45px;
+            left: 85%; bottom: -100px;
+            animation-duration: 11s;
+            animation-delay: 6s;
+        }
+
+        .bubble-9 {
+            width: 70px; height: 70px;
+            left: 5%; bottom: -120px;
+            animation-duration: 13s;
+            animation-delay: 7s;
+            background:
+                    radial-gradient(130% 130% at 30% 30%, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 20%, rgba(91,111,255,0.1) 40%, transparent 70%),
+                    radial-gradient(circle at 70% 70%, rgba(124,134,255,0.08) 0%, transparent 50%);
+            border-color: rgba(91,111,255,0.2);
+        }
+
+        .bubble-10 {
+            width: 55px; height: 55px;
+            left: 50%; bottom: -100px;
+            animation-duration: 17s;
+            animation-delay: 8s;
+        }
+
+        .bubble-11 {
+            width: 35px; height: 35px;
+            left: 30%; bottom: -80px;
+            animation-duration: 9s;
+            animation-delay: 1.5s;
+            opacity: 0.7;
+        }
+
+        .bubble-12 {
+            width: 85px; height: 85px;
+            left: 90%; bottom: -130px;
+            animation-duration: 19s;
+            animation-delay: 4.5s;
+            opacity: 0.8;
+        }
+
+        @keyframes bubbleFloat {
+            0% {
+                transform: translateY(0) translateX(0) scale(1);
+                opacity: 0;
+            }
+            5% {
+                opacity: 1;
+            }
+            25% {
+                transform: translateY(-25vh) translateX(20px) scale(1.05);
+            }
+            50% {
+                transform: translateY(-50vh) translateX(-15px) scale(0.95);
+            }
+            75% {
+                transform: translateY(-75vh) translateX(25px) scale(1.02);
+            }
+            95% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-110vh) translateX(-10px) scale(0.9);
+                opacity: 0;
+            }
+        }
+
+        /* Ambient glow orbs behind bubbles */
+        .ambient-glow {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            filter: blur(80px);
+            opacity: 0.3;
+        }
+
+        .ambient-glow-1 {
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(56,189,248,0.3), transparent 70%);
+            top: -100px; left: -100px;
+            animation: ambientDrift1 20s ease-in-out infinite;
+        }
+
+        .ambient-glow-2 {
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(124,134,255,0.25), transparent 70%);
+            bottom: -100px; right: -100px;
+            animation: ambientDrift2 25s ease-in-out infinite;
+        }
+
+        .ambient-glow-3 {
+            width: 350px; height: 350px;
+            background: radial-gradient(circle, rgba(91,111,255,0.2), transparent 70%);
+            top: 40%; left: 60%;
+            animation: ambientDrift3 22s ease-in-out infinite;
+        }
+
+        @keyframes ambientDrift1 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(80px, 60px) scale(1.2); }
+            66% { transform: translate(40px, -40px) scale(0.9); }
+        }
+
+        @keyframes ambientDrift2 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(-100px, -50px) scale(1.1); }
+            66% { transform: translate(-60px, 80px) scale(0.85); }
+        }
+
+        @keyframes ambientDrift3 {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-30%, -70%) scale(1.3); }
+        }
+
+        /* Subtle light rays */
+        .light-ray {
+            position: fixed;
+            width: 2px;
+            height: 200px;
+            background: linear-gradient(to bottom, transparent, rgba(56,189,248,0.1), transparent);
+            z-index: 1;
+            pointer-events: none;
+            transform-origin: top center;
+        }
+
+        .light-ray-1 {
+            top: -50px; left: 20%;
+            animation: raySwing1 15s ease-in-out infinite;
+        }
+
+        .light-ray-2 {
+            top: -50px; left: 50%;
+            animation: raySwing2 18s ease-in-out infinite;
+        }
+
+        .light-ray-3 {
+            top: -50px; left: 80%;
+            animation: raySwing1 20s ease-in-out infinite reverse;
+        }
+
+        @keyframes raySwing1 {
+            0%, 100% { transform: rotate(-15deg) translateX(0); opacity: 0.3; }
+            50% { transform: rotate(15deg) translateX(30px); opacity: 0.6; }
+        }
+
+        @keyframes raySwing2 {
+            0%, 100% { transform: rotate(10deg) translateX(0); opacity: 0.2; }
+            50% { transform: rotate(-20deg) translateX(-20px); opacity: 0.5; }
+        }
+
+        /* Vignette for depth */
+        .vignette {
+            position: fixed;
+            inset: 0;
+            z-index: 2;
+            pointer-events: none;
+            background: radial-gradient(ellipse at center, transparent 40%, rgba(10,14,26,0.5) 100%);
+        }
     </style>
+    <base target="_blank">
 </head>
 <body class="font-inter bg-bg-dark text-text-white overflow-hidden h-screen w-screen">
 
 <!-- PROGRESS BAR -->
 <div id="progressBar" class="fixed top-0 left-0 h-[3px] bg-gradient-to-r from-blue-bright to-blue-mid transition-all duration-400 z-[200]"></div>
 
+<!-- ============================================
+     ELEGANT GLASS BUBBLES BACKGROUND
+     ============================================ -->
+
+<!-- Ambient glow orbs -->
+<div class="ambient-glow ambient-glow-1"></div>
+<div class="ambient-glow ambient-glow-2"></div>
+<div class="ambient-glow ambient-glow-3"></div>
+
+<!-- Light rays -->
+<div class="light-ray light-ray-1"></div>
+<div class="light-ray light-ray-2"></div>
+<div class="light-ray light-ray-3"></div>
+
+<!-- Glass bubbles container -->
+<div class="bubbles-container">
+    <div class="bubble bubble-1"></div>
+    <div class="bubble bubble-2"></div>
+    <div class="bubble bubble-3"></div>
+    <div class="bubble bubble-4"></div>
+    <div class="bubble bubble-5"></div>
+    <div class="bubble bubble-6"></div>
+    <div class="bubble bubble-7"></div>
+    <div class="bubble bubble-8"></div>
+    <div class="bubble bubble-9"></div>
+    <div class="bubble bubble-10"></div>
+    <div class="bubble bubble-11"></div>
+    <div class="bubble bubble-12"></div>
+</div>
+
+<!-- Vignette -->
+<div class="vignette"></div>
+
 <!-- SLIDESHOW -->
-<div class="slideshow" id="slideshow">
+<div class="slideshow relative z-10" id="slideshow">
 
     <!-- SLIDE 1: TITLE -->
     <div class="slide slide-1 active absolute inset-0 flex flex-col justify-center items-center p-6 md:p-12 lg:p-16 overflow-hidden" data-index="0">
-        <h1 class="font-sora text-[clamp(2.2rem,7vw,6rem)] font-extrabold bg-gradient-to-r from-blue-bright to-blue-mid bg-clip-text text-transparent text-center mb-6 tracking-tight">Mastering Productivity</h1>
+        <h1 class="font-sora text-[clamp(2.2rem,7vw,6rem)] font-extrabold bg-gradient-to-r from-blue-bright to-blue-mid bg-clip-text text-transparent text-center mb-6 tracking-tight drop-shadow-[0_0_30px_rgba(56,189,248,0.3)]">Mastering Productivity</h1>
         <p class="text-text-muted text-[clamp(1rem,2vw,1.3rem)] font-light text-center leading-relaxed">Essential Workspace Tools for Tech Students:<br>monday.com & Notion</p>
-        <div class="mt-9 w-[min(600px,70vw)] h-[180px] rounded-2xl overflow-hidden opacity-80">
+        <div class="mt-9 w-[min(600px,70vw)] h-[180px] rounded-2xl overflow-hidden opacity-80 shadow-[0_0_40px_rgba(56,189,248,0.15)]">
             <img src="https://png.pngtree.com/thumb_back/fw800/background/20250828/pngtree-cyberpunk-office-with-glowing-screens-and-futuristic-holographic-displays-illuminated-digital-image_18283095.webp" alt="Digital workspace" class="w-full h-full object-cover" onerror="this.parentElement.style.display='none'">
         </div>
     </div>
 
     <!-- SLIDE 2: WHY TOOLS MATTER -->
     <div class="slide slide-2 absolute inset-0 flex flex-col justify-center items-center text-center p-6 md:p-12 lg:p-16 overflow-hidden" data-index="1">
-        <div class="w-20 h-1 bg-accent-line rounded-full mx-auto mb-8 animate-in"></div>
-        <h2 class="font-sora text-[clamp(2.5rem,6vw,4.5rem)] font-bold text-text-white animate-in">Why Tools Matter</h2>
+        <div class="w-20 h-1 bg-accent-line rounded-full mx-auto mb-8 animate-in shadow-[0_0_20px_rgba(91,111,255,0.5)]"></div>
+        <h2 class="font-sora text-[clamp(2.5rem,6vw,4.5rem)] font-bold text-text-white animate-in drop-shadow-[0_0_20px_rgba(56,189,248,0.2)]">Why Tools Matter</h2>
         <p class="text-text-muted text-lg md:text-xl mt-3 animate-in">Streamlining the Software Development Life Cycle (SDLC)</p>
     </div>
 
     <!-- SLIDE 3: PROGRAMMER'S SDLC -->
     <div class="slide slide-3 absolute inset-0 flex flex-col justify-center items-start p-6 md:p-12 lg:p-16 overflow-hidden" data-index="2">
         <div class="flex items-center gap-5 mb-8 w-full animate-in">
-            <div class="w-[5px] h-[54px] bg-accent-line rounded-[3px] shrink-0"></div>
+            <div class="w-[5px] h-[54px] bg-accent-line rounded-[3px] shrink-0 shadow-[0_0_15px_rgba(91,111,255,0.4)]"></div>
             <h2 class="font-sora text-[clamp(1.8rem,3.5vw,2.8rem)] font-bold text-text-white">The Programmer's SDLC</h2>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 w-full items-center">
             <div class="flex flex-col gap-5">
                 <div class="flex items-start gap-4 animate-in">
-                    <div class="w-9 h-9 shrink-0 flex items-center justify-center text-blue-bright text-[1.4rem] mt-0.5">🔀</div>
+                    <div class="w-9 h-9 shrink-0 flex items-center justify-center text-blue-bright text-[1.4rem] mt-0.5 drop-shadow-[0_0_8px_rgba(56,189,248,0.5)]">🔀</div>
                     <div>
                         <strong class="text-text-white font-semibold block">Centralized Documentation:</strong>
                         <p class="text-text-muted text-base mt-0.5">No more scattered .txt files or lost notes.</p>
                     </div>
                 </div>
                 <div class="flex items-start gap-4 animate-in">
-                    <div class="w-9 h-9 shrink-0 flex items-center justify-center text-blue-bright text-[1.4rem] mt-0.5">✅</div>
+                    <div class="w-9 h-9 shrink-0 flex items-center justify-center text-blue-bright text-[1.4rem] mt-0.5 drop-shadow-[0_0_8px_rgba(56,189,248,0.5)]">✅</div>
                     <div>
                         <strong class="text-text-white font-semibold block">Real-time Task Tracking:</strong>
                         <p class="text-text-muted text-base mt-0.5">Know exactly what to code next in the sprint.</p>
                     </div>
                 </div>
                 <div class="flex items-start gap-4 animate-in">
-                    <div class="w-9 h-9 shrink-0 flex items-center justify-center text-blue-bright text-[1.4rem] mt-0.5">👥</div>
+                    <div class="w-9 h-9 shrink-0 flex items-center justify-center text-blue-bright text-[1.4rem] mt-0.5 drop-shadow-[0_0_8px_rgba(56,189,248,0.5)]">👥</div>
                     <div>
                         <strong class="text-text-white font-semibold block">Improved Velocity:</strong>
                         <p class="text-text-muted text-base mt-0.5">Faster handoffs between Dev and QA teams.</p>
                     </div>
                 </div>
                 <div class="flex items-start gap-4 animate-in">
-                    <div class="w-9 h-9 shrink-0 flex items-center justify-center text-blue-bright text-[1.4rem] mt-0.5">🗄️</div>
+                    <div class="w-9 h-9 shrink-0 flex items-center justify-center text-blue-bright text-[1.4rem] mt-0.5 drop-shadow-[0_0_8px_rgba(56,189,248,0.5)]">🗄️</div>
                     <div>
                         <strong class="text-text-white font-semibold block">Knowledge Persistence:</strong>
                         <p class="text-text-muted text-base mt-0.5">Your "Second Brain" for programming logic.</p>
                     </div>
                 </div>
             </div>
-            <div class="bg-bg-card rounded-2xl flex items-center justify-center overflow-hidden border border-border-card max-h-[65vh] aspect-[3/4]">
+            <div class="bg-bg-card rounded-2xl flex items-center justify-center overflow-hidden border border-border-card max-h-[65vh] aspect-[3/4] shadow-[0_0_30px_rgba(56,189,248,0.1)]">
                 <img src="assets/images/slide 3.png" alt="SDLC" class="w-full h-full object-cover rounded-2xl" onerror="this.style.display='none'">
             </div>
         </div>
@@ -164,11 +480,11 @@
         <div class="grid grid-cols-1 md:grid-cols-[1fr_1.3fr] gap-8 md:gap-12 w-full items-center">
             <div class="animate-in">
                 <h3 class="font-sora text-2xl font-bold text-text-white mb-2">monday.com</h3>
-                <span class="text-blue-bright font-sora text-xl font-semibold block mb-5">Project Management OS</span>
+                <span class="text-blue-bright font-sora text-xl font-semibold block mb-5 drop-shadow-[0_0_10px_rgba(56,189,248,0.3)]">Project Management OS</span>
                 <p class="text-text-muted leading-relaxed mb-3.5 text-base">Built for technical project oversight. It visualizes workflows using Kanban, Gantt, and Timelines, turning complex roadmaps into actionable tasks.</p>
                 <p class="text-text-muted leading-relaxed text-base">It acts as the "Command Center" for your team's software development lifecycle.</p>
             </div>
-            <div class="rounded-xl overflow-hidden border border-border-card shadow-[0_20px_60px_rgba(0,0,0,0.5)] animate-in">
+            <div class="rounded-xl overflow-hidden border border-border-card shadow-[0_20px_60px_rgba(0,0,0,0.5),0_0_30px_rgba(56,189,248,0.1)] animate-in">
                 <img src="https://support.monday.com/hc/article_attachments/25923327232530" alt="monday.com screenshot" class="w-full block" onerror="this.style.display='none'">
             </div>
         </div>
@@ -177,22 +493,22 @@
     <!-- SLIDE 5: MONDAY DEEP DIVE -->
     <div class="slide slide-5 absolute inset-0 flex flex-col justify-center items-start p-6 md:p-12 lg:p-16 overflow-hidden" data-index="4">
         <div class="flex items-center gap-5 mb-8 w-full animate-in">
-            <div class="w-[5px] h-[54px] bg-accent-line rounded-[3px] shrink-0"></div>
+            <div class="w-[5px] h-[54px] bg-accent-line rounded-[3px] shrink-0 shadow-[0_0_15px_rgba(91,111,255,0.4)]"></div>
             <h2 class="font-sora text-[clamp(1.8rem,3.5vw,2.8rem)] font-bold text-text-white">monday.com Deep Dive</h2>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 w-full">
-            <div class="bg-bg-card2 rounded-[18px] p-7 md:p-9 text-center border border-border-card border-b-[3px] border-b-blue-bright hover:-translate-y-1.5 hover:shadow-[0_16px_40px_rgba(56,189,248,0.1)] transition-all duration-300 animate-in">
-                <div class="text-[2.5rem] mb-4">📋</div>
+            <div class="bg-bg-card2/80 backdrop-blur-sm rounded-[18px] p-7 md:p-9 text-center border border-border-card border-b-[3px] border-b-blue-bright hover:-translate-y-1.5 hover:shadow-[0_16px_40px_rgba(56,189,248,0.15)] transition-all duration-300 animate-in">
+                <div class="text-[2.5rem] mb-4 drop-shadow-[0_0_10px_rgba(56,189,248,0.3)]">📋</div>
                 <h3 class="font-sora text-blue-bright text-xl font-bold mb-3">Sprint Planning</h3>
                 <p class="text-text-muted text-[0.95rem] leading-relaxed">Use pre-built technical templates to manage your two-week sprints efficiently.</p>
             </div>
-            <div class="bg-bg-card2 rounded-[18px] p-7 md:p-9 text-center border border-border-card border-b-[3px] border-b-blue-bright hover:-translate-y-1.5 hover:shadow-[0_16px_40px_rgba(56,189,248,0.1)] transition-all duration-300 animate-in">
-                <div class="text-[2.5rem] mb-4">🤖</div>
+            <div class="bg-bg-card2/80 backdrop-blur-sm rounded-[18px] p-7 md:p-9 text-center border border-border-card border-b-[3px] border-b-blue-bright hover:-translate-y-1.5 hover:shadow-[0_16px_40px_rgba(56,189,248,0.15)] transition-all duration-300 animate-in">
+                <div class="text-[2.5rem] mb-4 drop-shadow-[0_0_10px_rgba(56,189,248,0.3)]">🤖</div>
                 <h3 class="font-sora text-blue-bright text-xl font-bold mb-3">Automations</h3>
                 <p class="text-text-muted text-[0.95rem] leading-relaxed">Eliminate manual status updates. Auto-move tasks when a code review is approved.</p>
             </div>
-            <div class="bg-bg-card2 rounded-[18px] p-7 md:p-9 text-center border border-border-card border-b-[3px] border-b-blue-bright hover:-translate-y-1.5 hover:shadow-[0_16px_40px_rgba(56,189,248,0.1)] transition-all duration-300 animate-in">
-                <div class="text-[2.5rem] mb-4">🔔</div>
+            <div class="bg-bg-card2/80 backdrop-blur-sm rounded-[18px] p-7 md:p-9 text-center border border-border-card border-b-[3px] border-b-blue-bright hover:-translate-y-1.5 hover:shadow-[0_16px_40px_rgba(56,189,248,0.15)] transition-all duration-300 animate-in">
+                <div class="text-[2.5rem] mb-4 drop-shadow-[0_0_10px_rgba(56,189,248,0.3)]">🔔</div>
                 <h3 class="font-sora text-blue-bright text-xl font-bold mb-3">Alerts</h3>
                 <p class="text-text-muted text-[0.95rem] leading-relaxed">Instant notifications for blockers, deadline changes, or new bug reports.</p>
             </div>
@@ -201,49 +517,49 @@
 
     <!-- SLIDE 6: THE KNOWLEDGE BASE -->
     <div class="slide slide-6 absolute inset-0 flex flex-col justify-center items-center text-center p-6 md:p-12 lg:p-16 overflow-hidden" data-index="5">
-        <div class="w-20 h-1 bg-accent-line rounded-full mx-auto mb-8 animate-in"></div>
-        <h2 class="font-sora text-[clamp(2.5rem,6vw,4.5rem)] font-bold text-text-white animate-in">The Knowledge Base</h2>
+        <div class="w-20 h-1 bg-accent-line rounded-full mx-auto mb-8 animate-in shadow-[0_0_20px_rgba(91,111,255,0.5)]"></div>
+        <h2 class="font-sora text-[clamp(2.5rem,6vw,4.5rem)] font-bold text-text-white animate-in drop-shadow-[0_0_20px_rgba(56,189,248,0.2)]">The Knowledge Base</h2>
         <p class="text-text-muted text-lg md:text-xl mt-3 animate-in">Notion: Your All-in-One Second Brain</p>
     </div>
 
     <!-- SLIDE 7: TECHNICAL DOCUMENTATION -->
     <div class="slide slide-7 absolute inset-0 flex flex-col justify-center items-start p-6 md:p-12 lg:p-16 overflow-hidden" data-index="6">
         <div class="flex items-center gap-5 mb-8 w-full animate-in">
-            <div class="w-[5px] h-[54px] bg-accent-line rounded-[3px] shrink-0"></div>
+            <div class="w-[5px] h-[54px] bg-accent-line rounded-[3px] shrink-0 shadow-[0_0_15px_rgba(91,111,255,0.4)]"></div>
             <h2 class="font-sora text-[clamp(1.8rem,3.5vw,2.8rem)] font-bold text-text-white">Technical Documentation</h2>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-[1.2fr_1fr] gap-6 md:gap-10 w-full items-center">
             <div class="flex flex-col gap-6">
                 <div class="flex items-start gap-4 animate-in">
-                    <div class="w-9 h-9 shrink-0 flex items-center justify-center text-blue-bright text-[1.4rem] mt-0.5">📄</div>
+                    <div class="w-9 h-9 shrink-0 flex items-center justify-center text-blue-bright text-[1.4rem] mt-0.5 drop-shadow-[0_0_8px_rgba(56,189,248,0.5)]">📄</div>
                     <div>
                         <strong class="text-text-white font-semibold block">Code Snippets:</strong>
                         <p class="text-text-muted text-base mt-0.5">Embed code blocks with native syntax highlighting for 60+ languages.</p>
                     </div>
                 </div>
                 <div class="flex items-start gap-4 animate-in">
-                    <div class="w-9 h-9 shrink-0 flex items-center justify-center text-blue-bright text-[1.4rem] mt-0.5">🏛️</div>
+                    <div class="w-9 h-9 shrink-0 flex items-center justify-center text-blue-bright text-[1.4rem] mt-0.5 drop-shadow-[0_0_8px_rgba(56,189,248,0.5)]">🏛️</div>
                     <div>
                         <strong class="text-text-white font-semibold block">System Architecture:</strong>
                         <p class="text-text-muted text-base mt-0.5">Map out your backend design and database schemas.</p>
                     </div>
                 </div>
                 <div class="flex items-start gap-4 animate-in">
-                    <div class="w-9 h-9 shrink-0 flex items-center justify-center text-blue-bright text-[1.4rem] mt-0.5">🧠</div>
+                    <div class="w-9 h-9 shrink-0 flex items-center justify-center text-blue-bright text-[1.4rem] mt-0.5 drop-shadow-[0_0_8px_rgba(56,189,248,0.5)]">🧠</div>
                     <div>
                         <strong class="text-text-white font-semibold block">Knowledge Management:</strong>
                         <p class="text-text-muted text-base mt-0.5">Create interconnected wikis for project context.</p>
                     </div>
                 </div>
                 <div class="flex items-start gap-4 animate-in">
-                    <div class="w-9 h-9 shrink-0 flex items-center justify-center text-blue-bright text-[1.4rem] mt-0.5">🗂️</div>
+                    <div class="w-9 h-9 shrink-0 flex items-center justify-center text-blue-bright text-[1.4rem] mt-0.5 drop-shadow-[0_0_8px_rgba(56,189,248,0.5)]">🗂️</div>
                     <div>
                         <strong class="text-text-white font-semibold block">Flexible Databases:</strong>
                         <p class="text-text-muted text-base mt-0.5">Build custom tracking for bugs or tutorials.</p>
                     </div>
                 </div>
             </div>
-            <div class="bg-bg-card rounded-2xl overflow-hidden border border-border-card max-h-[50vh] aspect-[16/10] flex items-center justify-center">
+            <div class="bg-bg-card rounded-2xl overflow-hidden border border-border-card max-h-[50vh] aspect-[16/10] flex items-center justify-center shadow-[0_0_30px_rgba(56,189,248,0.1)]">
                 <img src="https://s3.us-west-2.amazonaws.com/public.notion-static.com/template/6665a4e2-e323-4452-ae35-d1dd5bff1617/1708393279731/desktop.jpg" alt="Notion wiki with code snippets" class="w-full h-full object-contain rounded-2xl" onerror="this.style.display='none'">
             </div>
         </div>
@@ -252,22 +568,22 @@
     <!-- SLIDE 8: BEYOND SIMPLE NOTES -->
     <div class="slide slide-8 absolute inset-0 flex flex-col justify-center items-start p-6 md:p-12 lg:p-16 overflow-hidden" data-index="7">
         <div class="flex items-center gap-5 mb-8 w-full animate-in">
-            <div class="w-[5px] h-[54px] bg-accent-line rounded-[3px] shrink-0"></div>
+            <div class="w-[5px] h-[54px] bg-accent-line rounded-[3px] shrink-0 shadow-[0_0_15px_rgba(91,111,255,0.4)]"></div>
             <h2 class="font-sora text-[clamp(1.8rem,3.5vw,2.8rem)] font-bold text-text-white">Beyond Simple Notes</h2>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 w-full">
-            <div class="bg-bg-card2 rounded-[18px] p-7 md:p-9 text-center border border-border-card border-b-[3px] border-b-blue-bright hover:-translate-y-1.5 hover:shadow-[0_16px_40px_rgba(56,189,248,0.1)] transition-all duration-300 animate-in">
-                <div class="text-[2.5rem] mb-4">🐛</div>
+            <div class="bg-bg-card2/80 backdrop-blur-sm rounded-[18px] p-7 md:p-9 text-center border border-border-card border-b-[3px] border-b-blue-bright hover:-translate-y-1.5 hover:shadow-[0_16px_40px_rgba(56,189,248,0.15)] transition-all duration-300 animate-in">
+                <div class="text-[2.5rem] mb-4 drop-shadow-[0_0_10px_rgba(56,189,248,0.3)]">🐛</div>
                 <h3 class="font-sora text-blue-bright text-xl font-bold mb-3">Bug Tracking</h3>
                 <p class="text-text-muted text-[0.95rem] leading-relaxed">Custom databases to categorize issues by severity, platform, and priority.</p>
             </div>
-            <div class="bg-bg-card2 rounded-[18px] p-7 md:p-9 text-center border border-border-card border-b-[3px] border-b-blue-bright hover:-translate-y-1.5 hover:shadow-[0_16px_40px_rgba(56,189,248,0.1)] transition-all duration-300 animate-in">
-                <div class="text-[2.5rem] mb-4">🔖</div>
+            <div class="bg-bg-card2/80 backdrop-blur-sm rounded-[18px] p-7 md:p-9 text-center border border-border-card border-b-[3px] border-b-blue-bright hover:-translate-y-1.5 hover:shadow-[0_16px_40px_rgba(56,189,248,0.15)] transition-all duration-300 animate-in">
+                <div class="text-[2.5rem] mb-4 drop-shadow-[0_0_10px_rgba(56,189,248,0.3)]">🔖</div>
                 <h3 class="font-sora text-blue-bright text-xl font-bold mb-3">Resource Library</h3>
                 <p class="text-text-muted text-[0.95rem] leading-relaxed">Organize your favorite libraries, CSS frameworks, and StackOverflow links.</p>
             </div>
-            <div class="bg-bg-card2 rounded-[18px] p-7 md:p-9 text-center border border-border-card border-b-[3px] border-b-blue-bright hover:-translate-y-1.5 hover:shadow-[0_16px_40px_rgba(56,189,248,0.1)] transition-all duration-300 animate-in">
-                <div class="text-[2.5rem] mb-4">📚</div>
+            <div class="bg-bg-card2/80 backdrop-blur-sm rounded-[18px] p-7 md:p-9 text-center border border-border-card border-b-[3px] border-b-blue-bright hover:-translate-y-1.5 hover:shadow-[0_16px_40px_rgba(56,189,248,0.15)] transition-all duration-300 animate-in">
+                <div class="text-[2.5rem] mb-4 drop-shadow-[0_0_10px_rgba(56,189,248,0.3)]">📚</div>
                 <h3 class="font-sora text-blue-bright text-xl font-bold mb-3">Team Wiki</h3>
                 <p class="text-text-muted text-[0.95rem] leading-relaxed">The single source of truth for group projects and system requirements.</p>
             </div>
@@ -277,39 +593,39 @@
     <!-- SLIDE 9: COMPARATIVE ANALYSIS -->
     <div class="slide slide-9 absolute inset-0 flex flex-col justify-center items-start p-6 md:p-12 lg:p-16 overflow-hidden" data-index="8">
         <div class="flex items-center gap-5 mb-8 w-full animate-in">
-            <div class="w-[5px] h-[54px] bg-accent-line rounded-[3px] shrink-0"></div>
+            <div class="w-[5px] h-[54px] bg-accent-line rounded-[3px] shrink-0 shadow-[0_0_15px_rgba(91,111,255,0.4)]"></div>
             <h2 class="font-sora text-[clamp(1.8rem,3.5vw,2.8rem)] font-bold text-text-white">Comparative Analysis</h2>
         </div>
         <div class="w-full overflow-x-auto animate-in">
-            <table class="w-full border-collapse rounded-2xl overflow-hidden text-[0.95rem]">
-                <thead class="bg-bg-card2">
-                    <tr>
-                        <th class="p-4 md:p-5 text-left font-sora font-semibold text-text-white">Feature</th>
-                        <th class="p-4 md:p-5 text-left font-sora font-semibold text-text-white">Notion</th>
-                        <th class="p-4 md:p-5 text-left font-sora font-semibold text-text-white">monday.com</th>
-                    </tr>
+            <table class="w-full border-collapse rounded-2xl overflow-hidden text-[0.95rem] shadow-[0_0_30px_rgba(56,189,248,0.08)]">
+                <thead class="bg-bg-card2/90 backdrop-blur-sm">
+                <tr>
+                    <th class="p-4 md:p-5 text-left font-sora font-semibold text-text-white">Feature</th>
+                    <th class="p-4 md:p-5 text-left font-sora font-semibold text-text-white">Notion</th>
+                    <th class="p-4 md:p-5 text-left font-sora font-semibold text-text-white">monday.com</th>
+                </tr>
                 </thead>
                 <tbody>
-                    <tr class="border-t border-border-card bg-bg-card hover:bg-[#162030] transition-colors">
-                        <td class="p-4 md:p-5 text-text-white font-semibold">Best For</td>
-                        <td class="p-4 md:p-5 text-text-muted">Knowledge & Documentation</td>
-                        <td class="p-4 md:p-5 text-text-muted">Visual Project Management</td>
-                    </tr>
-                    <tr class="border-t border-border-card bg-bg-card hover:bg-[#162030] transition-colors">
-                        <td class="p-4 md:p-5 text-text-white font-semibold">Structure</td>
-                        <td class="p-4 md:p-5 text-text-muted">Blank Canvas (High Flexibility)</td>
-                        <td class="p-4 md:p-5 text-text-muted">Opinionated (Out-of-the-box)</td>
-                    </tr>
-                    <tr class="border-t border-border-card bg-bg-card hover:bg-[#162030] transition-colors">
-                        <td class="p-4 md:p-5 text-text-white font-semibold">Logic</td>
-                        <td class="p-4 md:p-5 text-text-muted">Relational Databases</td>
-                        <td class="p-4 md:p-5 text-text-muted">Powerful Automation Rules</td>
-                    </tr>
-                    <tr class="border-t border-border-card bg-bg-card hover:bg-[#162030] transition-colors">
-                        <td class="p-4 md:p-5 text-text-white font-semibold">Dev Focus</td>
-                        <td class="p-4 md:p-5 text-text-muted">Wikis & Technical Specs</td>
-                        <td class="p-4 md:p-5 text-text-muted">Sprint Tracking & Velocity</td>
-                    </tr>
+                <tr class="border-t border-border-card bg-bg-card/80 hover:bg-[#162030]/80 transition-colors">
+                    <td class="p-4 md:p-5 text-text-white font-semibold">Best For</td>
+                    <td class="p-4 md:p-5 text-text-muted">Knowledge & Documentation</td>
+                    <td class="p-4 md:p-5 text-text-muted">Visual Project Management</td>
+                </tr>
+                <tr class="border-t border-border-card bg-bg-card/80 hover:bg-[#162030]/80 transition-colors">
+                    <td class="p-4 md:p-5 text-text-white font-semibold">Structure</td>
+                    <td class="p-4 md:p-5 text-text-muted">Blank Canvas (High Flexibility)</td>
+                    <td class="p-4 md:p-5 text-text-muted">Opinionated (Out-of-the-box)</td>
+                </tr>
+                <tr class="border-t border-border-card bg-bg-card/80 hover:bg-[#162030]/80 transition-colors">
+                    <td class="p-4 md:p-5 text-text-white font-semibold">Logic</td>
+                    <td class="p-4 md:p-5 text-text-muted">Relational Databases</td>
+                    <td class="p-4 md:p-5 text-text-muted">Powerful Automation Rules</td>
+                </tr>
+                <tr class="border-t border-border-card bg-bg-card/80 hover:bg-[#162030]/80 transition-colors">
+                    <td class="p-4 md:p-5 text-text-white font-semibold">Dev Focus</td>
+                    <td class="p-4 md:p-5 text-text-muted">Wikis & Technical Specs</td>
+                    <td class="p-4 md:p-5 text-text-muted">Sprint Tracking & Velocity</td>
+                </tr>
                 </tbody>
             </table>
         </div>
@@ -318,17 +634,17 @@
     <!-- SLIDE 10: DEVELOPER INTEGRATIONS -->
     <div class="slide slide-10 absolute inset-0 flex flex-col justify-center items-start p-6 md:p-12 lg:p-16 overflow-hidden" data-index="9">
         <div class="flex items-center gap-5 mb-8 w-full animate-in">
-            <div class="w-[5px] h-[54px] bg-accent-line rounded-[3px] shrink-0"></div>
+            <div class="w-[5px] h-[54px] bg-accent-line rounded-[3px] shrink-0 shadow-[0_0_15px_rgba(91,111,255,0.4)]"></div>
             <h2 class="font-sora text-[clamp(1.8rem,3.5vw,2.8rem)] font-bold text-text-white">Developer Integrations</h2>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 w-full items-center">
             <div class="flex justify-center animate-in">
-                <div class="w-[200px] h-[200px] md:w-[280px] md:h-[280px] rounded-full bg-white flex items-center justify-center border-[3px] border-border-card shadow-[0_0_60px_rgba(56,189,248,0.1)]">
+                <div class="w-[200px] h-[200px] md:w-[280px] md:h-[280px] rounded-full bg-white flex items-center justify-center border-[3px] border-border-card shadow-[0_0_60px_rgba(56,189,248,0.2),0_0_100px_rgba(124,134,255,0.1)]">
                     <img src="https://logo.svgcdn.com/logos/gitlab.svg" alt="GitLab" class="w-[80%] object-contain" onerror="this.style.display='none'">
                 </div>
             </div>
             <div class="animate-in">
-                <h3 class="font-sora text-blue-bright text-2xl font-bold mb-4">Sync with GitHub & GitLab</h3>
+                <h3 class="font-sora text-blue-bright text-2xl font-bold mb-4 drop-shadow-[0_0_10px_rgba(56,189,248,0.3)]">Sync with GitHub & GitLab</h3>
                 <p class="text-text-muted leading-relaxed mb-3.5">Connect your codebase directly to your workspace. Sync pull requests with Notion tasks or track commit history on your monday.com board.</p>
                 <p class="text-text-muted leading-relaxed">Reduce context switching: Stay focused on your editor while the documentation updates itself.</p>
             </div>
@@ -338,16 +654,16 @@
     <!-- SLIDE 11: PRACTICAL USE CASES -->
     <div class="slide slide-11 absolute inset-0 flex flex-col justify-center items-start p-6 md:p-12 lg:p-16 overflow-hidden" data-index="10">
         <div class="flex items-center gap-5 mb-8 w-full animate-in">
-            <div class="w-[5px] h-[54px] bg-accent-line rounded-[3px] shrink-0"></div>
+            <div class="w-[5px] h-[54px] bg-accent-line rounded-[3px] shrink-0 shadow-[0_0_15px_rgba(91,111,255,0.4)]"></div>
             <h2 class="font-sora text-[clamp(1.8rem,3.5vw,2.8rem)] font-bold text-text-white">Practical Use Cases</h2>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-7 w-full">
-            <div class="bg-bg-card2 rounded-[18px] p-8 md:p-10 border border-border-card hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(56,189,248,0.08)] transition-all animate-in">
-                <h3 class="font-sora text-blue-bright text-xl font-bold mb-4">Personal Portfolio</h3>
+            <div class="bg-bg-card2/80 backdrop-blur-sm rounded-[18px] p-8 md:p-10 border border-border-card hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(56,189,248,0.12)] transition-all animate-in">
+                <h3 class="font-sora text-blue-bright text-xl font-bold mb-4 drop-shadow-[0_0_8px_rgba(56,189,248,0.2)]">Personal Portfolio</h3>
                 <p class="text-text-muted leading-relaxed">Use Notion to document your learning journey, showcase personal projects, and store interview preparation notes.</p>
             </div>
-            <div class="bg-bg-card2 rounded-[18px] p-8 md:p-10 border border-border-card hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(56,189,248,0.08)] transition-all animate-in">
-                <h3 class="font-sora text-blue-bright text-xl font-bold mb-4">Group Assignments</h3>
+            <div class="bg-bg-card2/80 backdrop-blur-sm rounded-[18px] p-8 md:p-10 border border-border-card hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(56,189,248,0.12)] transition-all animate-in">
+                <h3 class="font-sora text-blue-bright text-xl font-bold mb-4 drop-shadow-[0_0_8px_rgba(56,189,248,0.2)]">Group Assignments</h3>
                 <p class="text-text-muted leading-relaxed">Manage your capstone project or team coding tasks with a structured monday.com board to ensure fair workload.</p>
             </div>
         </div>
@@ -356,33 +672,33 @@
     <!-- SLIDE 12: TIPS -->
     <div class="slide slide-12 absolute inset-0 flex flex-col justify-center items-start p-6 md:p-12 lg:p-16 overflow-hidden" data-index="11">
         <div class="flex items-center gap-5 mb-8 w-full animate-in">
-            <div class="w-[5px] h-[54px] bg-accent-line rounded-[3px] shrink-0"></div>
+            <div class="w-[5px] h-[54px] bg-accent-line rounded-[3px] shrink-0 shadow-[0_0_15px_rgba(91,111,255,0.4)]"></div>
             <h2 class="font-sora text-[clamp(1.8rem,3.5vw,2.8rem)] font-bold text-text-white">Tips for Future Technicians</h2>
         </div>
         <div class="flex flex-col gap-5 w-full max-w-[900px] mx-auto">
-            <div class="flex items-start gap-5 p-5 md:p-6 bg-bg-card rounded-[14px] border border-border-card hover:translate-x-1.5 transition-transform animate-in">
-                <div class="text-[1.8rem] shrink-0">🎓</div>
+            <div class="flex items-start gap-5 p-5 md:p-6 bg-bg-card/80 backdrop-blur-sm rounded-[14px] border border-border-card hover:translate-x-1.5 transition-transform animate-in shadow-[0_0_20px_rgba(56,189,248,0.05)]">
+                <div class="text-[1.8rem] shrink-0 drop-shadow-[0_0_8px_rgba(56,189,248,0.3)]">🎓</div>
                 <div>
                     <strong class="text-text-white block mb-1">Leverage Student Discounts:</strong>
                     <span class="text-text-muted text-[0.92rem]">monday.com and Notion offer robust free plans for students. Use them to build your stack!</span>
                 </div>
             </div>
-            <div class="flex items-start gap-5 p-5 md:p-6 bg-bg-card rounded-[14px] border border-border-card hover:translate-x-1.5 transition-transform animate-in">
-                <div class="text-[1.8rem] shrink-0">🌱</div>
+            <div class="flex items-start gap-5 p-5 md:p-6 bg-bg-card/80 backdrop-blur-sm rounded-[14px] border border-border-card hover:translate-x-1.5 transition-transform animate-in shadow-[0_0_20px_rgba(56,189,248,0.05)]">
+                <div class="text-[1.8rem] shrink-0 drop-shadow-[0_0_8px_rgba(56,189,248,0.3)]">🌱</div>
                 <div>
                     <strong class="text-text-white block mb-1">Start Small:</strong>
                     <span class="text-text-muted text-[0.92rem]">Don't build a complex system overnight. Solve one specific pain point first (e.g., bug tracking).</span>
                 </div>
             </div>
-            <div class="flex items-start gap-5 p-5 md:p-6 bg-bg-card rounded-[14px] border border-border-card hover:translate-x-1.5 transition-transform animate-in">
-                <div class="text-[1.8rem] shrink-0">🕐</div>
+            <div class="flex items-start gap-5 p-5 md:p-6 bg-bg-card/80 backdrop-blur-sm rounded-[14px] border border-border-card hover:translate-x-1.5 transition-transform animate-in shadow-[0_0_20px_rgba(56,189,248,0.05)]">
+                <div class="text-[1.8rem] shrink-0 drop-shadow-[0_0_8px_rgba(56,189,248,0.3)]">🕐</div>
                 <div>
                     <strong class="text-text-white block mb-1">Daily Documentation:</strong>
                     <span class="text-text-muted text-[0.92rem]">Build the habit of writing technical notes daily. It separates juniors from pros.</span>
                 </div>
             </div>
-            <div class="flex items-start gap-5 p-5 md:p-6 bg-bg-card rounded-[14px] border border-border-card hover:translate-x-1.5 transition-transform animate-in">
-                <div class="text-[1.8rem] shrink-0">🧩</div>
+            <div class="flex items-start gap-5 p-5 md:p-6 bg-bg-card/80 backdrop-blur-sm rounded-[14px] border border-border-card hover:translate-x-1.5 transition-transform animate-in shadow-[0_0_20px_rgba(56,189,248,0.05)]">
+                <div class="text-[1.8rem] shrink-0 drop-shadow-[0_0_8px_rgba(56,189,248,0.3)]">🧩</div>
                 <div>
                     <strong class="text-text-white block mb-1">Integrate Everything:</strong>
                     <span class="text-text-muted text-[0.92rem]">Connect your tools to your IDE and Git provider for a seamless flow.</span>
@@ -393,34 +709,34 @@
 
     <!-- SLIDE 13: FINAL -->
     <div class="slide slide-13 absolute inset-0 flex flex-col justify-center items-center p-6 md:p-12 lg:p-16 overflow-hidden" data-index="12">
-        <h2 class="font-sora text-[clamp(2.5rem,10vw,7rem)] font-extrabold text-text-white mb-7 text-center">😊 Thank you for your attention!</h2>
+        <h2 class="font-sora text-[clamp(2.5rem,10vw,7rem)] font-extrabold text-text-white mb-7 text-center drop-shadow-[0_0_40px_rgba(56,189,248,0.3)]">😊 Thank you for your attention!</h2>
         <p class="text-text-muted text-base md:text-lg">Your Journey to Peak Productivity Starts Now</p>
     </div>
 
     <!-- SLIDE 14: LETS PLAY A GAME -->
     <div class="slide slide-14 absolute inset-0 flex flex-col justify-center items-center p-6 md:p-12 lg:p-16 overflow-hidden" data-index="13">
-        <h2 class="font-sora text-[clamp(2.5rem,6vw,4.5rem)] font-extrabold text-text-white mb-8 text-center">I want to play a game...</h2>
+        <h2 class="font-sora text-[clamp(2.5rem,6vw,4.5rem)] font-extrabold text-text-white mb-8 text-center drop-shadow-[0_0_30px_rgba(56,189,248,0.2)]">I want to play a game...</h2>
         <div class="flex flex-col md:flex-row items-center gap-8">
-            <div class="bg-bg-card rounded-2xl p-8 md:p-12 border border-border-card flex flex-col items-center">
+            <div class="bg-bg-card/80 backdrop-blur-sm rounded-2xl p-8 md:p-12 border border-border-card flex flex-col items-center shadow-[0_0_40px_rgba(56,189,248,0.1)]">
                 <p class="text-text-muted text-lg mb-6">Join the game:</p>
                 <div class="flex items-center gap-4">
-                    <span class="text-blue-bright font-sora text-2xl md:text-3xl font-bold">GAME PIN:</span>
+                    <span class="text-blue-bright font-sora text-2xl md:text-3xl font-bold drop-shadow-[0_0_10px_rgba(56,189,248,0.4)]">GAME PIN:</span>
                     <span class="text-text-white font-sora text-2xl md:text-3xl font-bold tracking-widest">[PIN]</span>
                 </div>
-                <p class="text-blue-bright font-sora text-xl font-semibold mt-6">Kahoot!</p>
+                <p class="text-blue-bright font-sora text-xl font-semibold mt-6 drop-shadow-[0_0_8px_rgba(56,189,248,0.3)]">Kahoot!</p>
             </div>
-            <img src="assets/gifs/giphy.gif" alt="Game animation" class="w-[220px] md:w-[300px] rounded-xl">
+            <img src="assets/gifs/giphy.gif" alt="Game animation" class="w-[220px] md:w-[300px] rounded-xl shadow-[0_0_30px_rgba(56,189,248,0.15)]">
         </div>
     </div>
 
 </div>
 
 <!-- NAVIGATION -->
-<div class="nav fixed bottom-6 md:bottom-9 left-1/2 -translate-x-1/2 flex items-center gap-4 md:gap-5 z-50 bg-bg-dark/85 backdrop-blur-[16px] border border-border-card rounded-full px-4 md:px-6 py-2.5 md:py-3">
-    <button id="prevBtn" class="nav-btn w-9 h-9 md:w-[42px] md:h-[42px] rounded-full bg-bg-card2 border border-[#2a3a55] text-text-white flex items-center justify-center hover:bg-[#253045] hover:scale-110 transition-all disabled:opacity-30">←</button>
+<div class="nav fixed bottom-6 md:bottom-9 left-1/2 -translate-x-1/2 flex items-center gap-4 md:gap-5 z-50 bg-bg-dark/60 backdrop-blur-[16px] border border-border-card rounded-full px-4 md:px-6 py-2.5 md:py-3 shadow-[0_0_30px_rgba(56,189,248,0.1)]">
+    <button id="prevBtn" class="nav-btn w-9 h-9 md:w-[42px] md:h-[42px] rounded-full bg-bg-card2 border border-[#2a3a55] text-text-white flex items-center justify-center hover:bg-[#253045] hover:scale-110 hover:shadow-[0_0_15px_rgba(56,189,248,0.3)] transition-all disabled:opacity-30">←</button>
     <div class="dots flex gap-1.5 items-center" id="dots"></div>
     <div class="font-sora text-sm text-text-muted min-w-[60px] text-center"><span id="currentNum" class="text-text-white font-semibold">1</span> / <span id="totalNum">14</span></div>
-    <button id="nextBtn" class="nav-btn w-9 h-9 md:w-[42px] md:h-[42px] rounded-full bg-bg-card2 border border-[#2a3a55] text-text-white flex items-center justify-center hover:bg-[#253045] hover:scale-110 transition-all disabled:opacity-30">→</button>
+    <button id="nextBtn" class="nav-btn w-9 h-9 md:w-[42px] md:h-[42px] rounded-full bg-bg-card2 border border-[#2a3a55] text-text-white flex items-center justify-center hover:bg-[#253045] hover:scale-110 hover:shadow-[0_0_15px_rgba(56,189,248,0.3)] transition-all disabled:opacity-30">→</button>
 </div>
 
 <!-- KEY HINT -->
@@ -429,6 +745,73 @@
     <span class="text-[0.65rem] border-0">keys</span>
 </div>
 
-<script src="assets/js/index.js"></script>
+<script>
+    // ============================================
+    // SLIDESHOW LOGIC
+    // ============================================
+    const slides = document.querySelectorAll('.slide');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const currentNum = document.getElementById('currentNum');
+    const totalNum = document.getElementById('totalNum');
+    const progressBar = document.getElementById('progressBar');
+    const dotsContainer = document.getElementById('dots');
+
+    let currentSlide = 0;
+    const totalSlides = slides.length;
+
+    totalNum.textContent = totalSlides;
+
+    // Create dots
+    slides.forEach((_, index) => {
+        const dot = document.createElement('div');
+        dot.className = `w-2 h-2 rounded-full transition-all duration-300 cursor-pointer ${index === 0 ? 'bg-blue-bright w-6' : 'bg-text-muted/30'}`;
+        dot.addEventListener('click', () => goToSlide(index));
+        dotsContainer.appendChild(dot);
+    });
+
+    function updateDots() {
+        const dots = dotsContainer.children;
+        for (let i = 0; i < dots.length; i++) {
+            dots[i].className = `w-2 h-2 rounded-full transition-all duration-300 cursor-pointer ${i === currentSlide ? 'bg-blue-bright w-6 shadow-[0_0_10px_rgba(56,189,248,0.5)]' : 'bg-text-muted/30'}`;
+        }
+    }
+
+    function updateProgress() {
+        const progress = ((currentSlide + 1) / totalSlides) * 100;
+        progressBar.style.width = `${progress}%`;
+    }
+
+    function goToSlide(index) {
+        if (index < 0 || index >= totalSlides) return;
+
+        slides[currentSlide].classList.remove('active');
+        slides[currentSlide].classList.add(index > currentSlide ? 'exit-left' : 'exit-right');
+
+        currentSlide = index;
+
+        slides[currentSlide].classList.remove('exit-left', 'exit-right');
+        slides[currentSlide].classList.add('active');
+
+        currentNum.textContent = currentSlide + 1;
+        updateDots();
+        updateProgress();
+
+        prevBtn.disabled = currentSlide === 0;
+        nextBtn.disabled = currentSlide === totalSlides - 1;
+    }
+
+    prevBtn.addEventListener('click', () => goToSlide(currentSlide - 1));
+    nextBtn.addEventListener('click', () => goToSlide(currentSlide + 1));
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') goToSlide(currentSlide - 1);
+        if (e.key === 'ArrowRight') goToSlide(currentSlide + 1);
+    });
+
+    updateProgress();
+    prevBtn.disabled = true;
+</script>
+
 </body>
 </html>
